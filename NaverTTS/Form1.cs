@@ -60,12 +60,12 @@ namespace NaverTTS
                     Console.WriteLine("status=" + status);
                     
                     string Name = Regex.Replace(text, @"[^a-zA-Z0-9가-힣_]", "", RegexOptions.Singleline);
-                    string fileName = @".\" + Name + ".mp3";
+                    string fileName = @".\" + Name + "_"+sex[nLanguage, nSex].ToLower() + "_"+ voiceSpeed.ToString() + ".mp3";
                     using (Stream output = File.OpenWrite(fileName))
                     using (Stream input = response.GetResponseStream())
                     {
                         input.CopyTo(output);
-                        MessageBox.Show(fileName + " 생성!\n성공!");
+                        MessageBox.Show(Name + ".mp3" + " 생성!\n성공!");
                     }
                 }
             }
