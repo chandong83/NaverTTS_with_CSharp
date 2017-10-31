@@ -56,16 +56,23 @@ namespace NaverTTS
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    string status = response.StatusCode.ToString();
-                    Console.WriteLine("status=" + status);
-                    
-                    string Name = Regex.Replace(text, @"[^a-zA-Z0-9가-힣_]", "", RegexOptions.Singleline);
-                    string fileName = @".\" + Name + "_"+sex[nLanguage, nSex].ToLower() + "_"+ voiceSpeed.ToString() + ".mp3";
-                    using (Stream output = File.OpenWrite(fileName))
-                    using (Stream input = response.GetResponseStream())
+                    try
                     {
-                        input.CopyTo(output);
-                        MessageBox.Show(Name + ".mp3" + " 생성!\n성공!");
+                        string status = response.StatusCode.ToString();
+                        Console.WriteLine("status=" + status);
+
+                        string Name = Regex.Replace(text, @"[^a-zA-Z0-9가-힣_]", "", RegexOptions.Singleline);
+                        string fileName = @".\" + Name + "_" + sex[nLanguage, nSex].ToLower() + "_" + voiceSpeed.ToString() + ".mp3";
+                        using (Stream output = File.OpenWrite(fileName))
+                        using (Stream input = response.GetResponseStream())
+                        {
+                            input.CopyTo(output);
+                            MessageBox.Show(Name + ".mp3" + " 생성!\n성공!");
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 }
             }
